@@ -16,7 +16,7 @@ struct ContentView: View {
 
     @State var level: Float = 0
     @State var buttonTitle: String = "Start"
-    @State var infoTitle: String = "Press start to start recording"
+    @State var infoTitle: String = "Press \"Start\" to start recording"
     @State var isRecording: Bool = false
 
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 0.02, on: .main, in: .common)
@@ -56,12 +56,14 @@ struct ContentView: View {
             self.recorder?.stop()
             self.isRecording = false
             self.buttonTitle = "Start"
+            self.infoTitle = "Press \"Start\" to start recording"
             connectedTimer?.cancel()
             return
         }
 
         audioSession.requestRecordPermission { granted in
             if granted {
+                self.infoTitle = "Starting recording ..."
                 self.recorder?.prepareToRecord()
                 self.recorder?.isMeteringEnabled = true
                 self.recorder?.record()
@@ -84,6 +86,7 @@ struct ContentView: View {
         recorder?.updateMeters()
         level = recorder?.averagePower(forChannel: 0) ?? 0
         infoTitle = "Current Level: \(level)"
+        print("Current Level: \(level)")
     }
 }
 

@@ -52,7 +52,6 @@ struct ContentView: View {
                 .stroke(lineWidth: 20.0)
                 .opacity(0.3)
                 .foregroundColor(Color.red)
-
             Circle()
                 .trim(from: 0.0, to: CGFloat(leftLevel) / 10.0)
                 .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))

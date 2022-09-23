@@ -14,7 +14,9 @@ struct ContentView: View {
     var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
     let LEVEL_THRESHOLD: Float = -10.0
 
-    @State var level: Float = 0
+    @State var leftLevel: Int = 0
+    @State var rightLevel: Int = 0
+    @State var decibels: Float = 0.0
     @State var buttonTitle: String = "Start"
     @State var infoTitle: String = "Press \"Start\" to start recording"
     @State var isRecording: Bool = false
@@ -38,16 +40,33 @@ struct ContentView: View {
         do {
             try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
             try audioSession.setActive(true)
-            try recorder = AVAudioRecorder(url:url, settings: recordSettings)
+            try recorder = AVAudioRecorder(url: url, settings: recordSettings)
         } catch {
             return
         }
     }
 
     var body: some View {
-        Spacer()
+        ZStack {
+            Circle()
+                .stroke(lineWidth: 20.0)
+                .opacity(0.3)
+                .foregroundColor(Color.red)
+
+            Circle()
+                .trim(from: 0.0, to: CGFloat(leftLevel) / 10.0)
+                .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
+                .foregroundColor(Color.red)
+                .rotationEffect(Angle(degrees: 270.0))
+                .animation(.linear)
+            Text(String(format: "%.1f dB", self.decibels))
+                .font(.largeTitle)
+                .bold()
+        }.padding()
+
         Button(buttonTitle, action: startRecording)
-        Spacer()
+            .padding()
+
         Text(infoTitle)
     }
 
@@ -57,6 +76,9 @@ struct ContentView: View {
             self.isRecording = false
             self.buttonTitle = "Start"
             self.infoTitle = "Press \"Start\" to start recording"
+            self.leftLevel = 0
+            self.rightLevel = 0
+            self.decibels = 0
             connectedTimer?.cancel()
             return
         }
@@ -71,7 +93,7 @@ struct ContentView: View {
                 buttonTitle = "Stop"
                 isRecording = true
 
-                connectedTimer = Timer.publish(every: 1, on: .main, in: .default)
+                connectedTimer = Timer.publish(every: 0.01, on: .main, in: .default)
                     .autoconnect()
                     .sink { _ in
                         levelTimerCallback()
@@ -84,9 +106,31 @@ struct ContentView: View {
 
     private func levelTimerCallback() {
         recorder?.updateMeters()
-        level = recorder?.averagePower(forChannel: 0) ?? 0
-        infoTitle = "Current Level: \(level)"
-        print("Current Level: \(level)")
+        leftLevel = level(for: recorder?.peakPower(forChannel: 0) ?? 0)
+        rightLevel = level(for: recorder?.peakPower(forChannel: 1) ?? 0)
+        decibels = recorder?.peakPower(forChannel: 0) ?? 0
+        infoTitle = "Left: \(leftLevel) - Right: \(rightLevel)"
+    }
+
+    private func level(for decibels: Float) -> Int {
+        var level: Float = 0.0
+        let minDecibels: Float = -90
+
+        if (decibels < minDecibels) {
+            level = 0
+        } else if (decibels >= 0) {
+            level = 1
+        } else {
+            let root: Float = 2.0
+            let minAmp = powf(10.0, 0.05 * minDecibels)
+            let inverseAmpRange = 1.0 / ( 1.0 - minAmp)
+            let amp = powf(10.0, 0.05 * decibels)
+            let adjAmp = (amp - minAmp) * inverseAmpRange
+
+            level = powf(adjAmp, 1.0 / root)
+        }
+
+        return Int(level * 100)
     }
 }
 

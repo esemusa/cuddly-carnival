@@ -20,7 +20,7 @@ struct LevelBar: View {
                             height: geometryReader.size.height
                         )
                     )
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .animation(.easeOut)
 
                 Rectangle()
@@ -28,7 +28,7 @@ struct LevelBar: View {
                     .foregroundColor(.clear)
 
             }
-        }.padding()
+        }
     }
 
     private func progress(

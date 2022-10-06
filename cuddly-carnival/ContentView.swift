@@ -3,14 +3,21 @@ import SwiftUI
 import UserNotifications
 
 struct ContentView: View {
-    
-    let LEVEL_THRESHOLD: Float = -10.0
 
     private var buttonColor: Color {
-        levelMeter.isMetering ? .red : .green
+        switch levelMeter.state {
+
+        case .active:
+            return .red
+        case .inactive:
+            return .green
+        case .permissionMissing:
+            return .gray
+        }
     }
 
     @State private var notificationButtonIsDisabled = false
+    @State private var threshold: Double = 5.0
 
     @ObservedObject private var levelMeter = LevelMeter()
 
@@ -18,15 +25,21 @@ struct ContentView: View {
         Text("Ding Dong")
             .font(.headline)
 
-        VStack {
-            LevelBar(level: levelMeter.level, label: "Links")
+        VStack(spacing: 20.0) {
+            HStack {
+                Spacer()
+                LevelBar(level: levelMeter.level, label: "Links")
+                Spacer()
+                VSlider(value: $threshold, in: 0...10)
+                Spacer()
+            }
 
-            Button(action: startRecording) {
+            Button(action: onRecordButtonPressed) {
                 Image(systemName: "power")
                     .font(.system(size: 56.0))
                     .foregroundColor(buttonColor)
-            }.disabled(!levelMeter.accessGranted)
-        }
+            }.disabled(levelMeter.state == .permissionMissing)
+        }.padding()
 
         Divider()
 
@@ -51,8 +64,8 @@ struct ContentView: View {
         }.disabled(notificationButtonIsDisabled)
     }
 
-    private func startRecording() {
-        if levelMeter.isMetering {
+    private func onRecordButtonPressed() {
+        if levelMeter.state == .active {
             levelMeter.stop()
             return
         }

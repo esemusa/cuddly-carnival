@@ -3,14 +3,19 @@ import Combine
 import SwiftUI
 
 class LevelMeter: ObservableObject {
-    @Published var level: Double = 0
-    @Published var isMetering = false
-    @Published var accessGranted = false
 
-    private var connectedTimer: Cancellable? = nil
+    enum State {
+        case active
+        case inactive
+        case permissionMissing
+    }
+
+    @Published var level: Double = 0
+    @Published var state: State = .inactive
+
     private var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
     private var recorder: AVAudioRecorder?
-    private var timer: Timer.TimerPublisher = Timer.publish(every: 0.02, on: .main, in: .common)
+    private var timer: Timer?
 
     init() {
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
@@ -36,27 +41,26 @@ class LevelMeter: ObservableObject {
 
     func start() {
         audioSession.requestRecordPermission { [weak self] granted in
-            self?.accessGranted = granted
             if granted {
                 self?.recorder?.prepareToRecord()
                 self?.recorder?.isMeteringEnabled = true
                 self?.recorder?.record()
 
-                self?.isMetering = true
+                self?.state = .active
 
-                self?.connectedTimer = Timer.publish(every: 0.01, on: .main, in: .default)
-                    .autoconnect()
-                    .sink { _ in
-                        self?.levelTimerCallback()
-                    }
+                self?.timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                    self?.levelTimerCallback()
+                }
+            } else {
+                self?.state = .permissionMissing
             }
         }
     }
 
     func stop() {
         level = 0
-        isMetering = false
-        connectedTimer?.cancel()
+        state = .inactive
+        timer?.invalidate()
         recorder?.stop()
     }
 

@@ -54,13 +54,6 @@ struct VSlider<V: BinaryFloatingPoint>: View {
                     .foregroundColor(Color.white)
                     .shadow(radius: 2, y: 2)
 
-                // Horizontal Line
-                Rectangle()
-                    .foregroundColor(.red.opacity(0.5))
-                    .frame(height: 12)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .position(self.getPoint(in: geometry))
-
                 // Catches drag gesture
                 Rectangle()
                     .frame(minWidth: CGFloat(self.dragRadius))

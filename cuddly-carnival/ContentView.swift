@@ -1,8 +1,9 @@
 import Combine
 import SwiftUI
-import UserNotifications
 
 struct ContentView: View {
+
+    private var sender: [Sender]
 
     private var buttonColor: Color {
         switch levelMeter.state {
@@ -16,10 +17,17 @@ struct ContentView: View {
         }
     }
 
-    @State private var notificationButtonIsDisabled = false
-    @State private var threshold: Double = 5.0
+    @State private var notificationButtonIsDisabled: Bool
+    @State private var threshold: Double
 
-    @ObservedObject private var levelMeter = LevelMeter()
+    @ObservedObject private var levelMeter: LevelMeter
+
+    init(notificationButtonIsDisabled: Bool = false, threshold: Double = 5.0, levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
+        self.notificationButtonIsDisabled = notificationButtonIsDisabled
+        self.threshold = threshold
+        self.levelMeter = levelMeter
+        self.sender = sender
+    }
 
     var body: some View {
         Text("Ding Dong")
@@ -32,6 +40,8 @@ struct ContentView: View {
                 Spacer()
                 VSlider(value: $threshold, in: 0...10)
                 Spacer()
+            }.onReceive(levelMeter.$level) {
+                levelDidChange(to: $0)
             }
 
             Button(action: onRecordButtonPressed) {
@@ -40,28 +50,14 @@ struct ContentView: View {
                     .foregroundColor(buttonColor)
             }.disabled(levelMeter.state == .permissionMissing)
         }.padding()
+    }
 
-        Divider()
-
-        Button("Test Notification") {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, _ in
-                if success {
-                    let content = UNMutableNotificationContent()
-                    content.title = "Alarm!"
-                    content.subtitle = "Aufwachen!"
-                    content.sound = UNNotificationSound.default
-
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
-                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
-                    
-                    UNUserNotificationCenter.current().add(request)
-                } else {
-                    notificationButtonIsDisabled = true
-                }
+    private func levelDidChange(to level: Double) {
+        if level > threshold * 10 {
+            sender.forEach {
+                $0.send()
             }
-        }.disabled(notificationButtonIsDisabled)
+        }
     }
 
     private func onRecordButtonPressed() {

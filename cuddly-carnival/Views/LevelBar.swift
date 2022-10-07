@@ -9,7 +9,7 @@ struct LevelBar: View {
             GeometryReader { geometryReader in
                 Rectangle()
                     .fill(
-                        LinearGradient(colors: [.red, .green], startPoint: .topLeading, endPoint: .bottomLeading)
+                        LinearGradient(colors: [.red, .yellow, .green], startPoint: .topLeading, endPoint: .bottomLeading)
                     )
 
                 Rectangle()
@@ -20,7 +20,7 @@ struct LevelBar: View {
                             height: geometryReader.size.height
                         )
                     )
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white)
                     .animation(.easeOut)
 
                 Rectangle()
@@ -37,6 +37,6 @@ struct LevelBar: View {
         height: CGFloat
     ) -> CGFloat {
         let percentage = value / maxValue
-        return height - (height *  CGFloat(percentage))
+        return height - (height * CGFloat(percentage))
     }
 }

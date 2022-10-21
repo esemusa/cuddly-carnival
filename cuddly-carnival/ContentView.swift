@@ -38,7 +38,7 @@ struct ContentView: View {
                 Spacer()
                 LevelBar(level: levelMeter.level, label: "Links")
                 Spacer()
-                VSlider(value: $threshold, in: 0...10)
+                VSlider(value: $threshold, in: 0...160)
                 Spacer()
             }.onReceive(levelMeter.$level) {
                 levelDidChange(to: $0)
@@ -53,7 +53,7 @@ struct ContentView: View {
     }
 
     private func levelDidChange(to level: Double) {
-        if level > threshold * 10 {
+        if level > threshold {
             sender.forEach {
                 $0.send()
             }

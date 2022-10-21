@@ -76,23 +76,24 @@ class LevelMeter: ObservableObject {
     }
 
     private func level(for decibels: Float) -> Double {
-        var level: Float = 0.0
-        let minDecibels: Float = -90
-
-        if (decibels < minDecibels) {
-            level = 0
-        } else if (decibels >= 0) {
-            level = 1
-        } else {
-            let root: Float = 2.0
-            let minAmp = powf(10.0, 0.05 * minDecibels)
-            let inverseAmpRange = 1.0 / ( 1.0 - minAmp)
-            let amp = powf(10.0, 0.05 * decibels)
-            let adjAmp = (amp - minAmp) * inverseAmpRange
-
-            level = powf(adjAmp, 1.0 / root)
-        }
-
-        return Double(level * 100)
+        return Double(decibels + 160)
+//        var level: Float = 0.0
+//        let minDecibels: Float = -90
+//
+//        if (decibels < minDecibels) {
+//            level = 0
+//        } else if (decibels >= 0) {
+//            level = 1
+//        } else {
+//            let root: Float = 2.0
+//            let minAmp = powf(10.0, 0.05 * minDecibels)
+//            let inverseAmpRange = 1.0 / ( 1.0 - minAmp)
+//            let amp = powf(10.0, 0.05 * decibels)
+//            let adjAmp = (amp - minAmp) * inverseAmpRange
+//
+//            level = powf(adjAmp, 1.0 / root)
+//        }
+//
+//        return Double(level * 100)
     }
 }

@@ -9,14 +9,14 @@ struct LevelBar: View {
             GeometryReader { geometryReader in
                 Rectangle()
                     .fill(
-                        LinearGradient(colors: [.red, .yellow, .green], startPoint: .topLeading, endPoint: .bottomLeading)
+                        LinearGradient(colors: [.purple, .purple, .blue], startPoint: .topLeading, endPoint: .bottomLeading)
                     )
 
                 Rectangle()
                     .frame(
                         height: self.progress(
                             value: self.level,
-                            maxValue: 100,
+                            maxValue: 160,
                             height: geometryReader.size.height
                         )
                     )

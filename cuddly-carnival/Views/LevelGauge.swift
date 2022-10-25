@@ -27,7 +27,9 @@ struct LevelGauge: View {
     }
 
     private func calculateIsDisplaying(at i: Int) -> Bool {
-        return level > (160 / CGFloat(i))
+        let steps = 100 / numberOfArcs
+        let threshold = (numberOfArcs - CGFloat(i)) * steps
+        return level > threshold
     }
 
     private func arcWidth(for geometry: GeometryProxy, at i: Int) -> CGFloat {

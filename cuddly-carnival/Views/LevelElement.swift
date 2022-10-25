@@ -13,7 +13,7 @@ struct LevelElement: View {
                 GeometryReader { geometry in
                     ForEach(0 ..< 10) { i in
                         Arc()
-                            .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
+                            .stroke(style: StrokeStyle(lineWidth: CGFloat(20 - i), lineCap: .round, lineJoin: .round))
                             .foregroundColor(borderColor)
                             .frame(
                                 width: geometry.size.width * ((numberOfArcs - CGFloat(i)) / numberOfArcs),
@@ -22,7 +22,7 @@ struct LevelElement: View {
                             .position(x: geometry.size.width / 2, y: CGFloat(i) * (geometry.size.height / numberOfArcs))
 
                         Arc()
-                            .stroke(style: StrokeStyle(lineWidth: 13.0, lineCap: .round, lineJoin: .round))
+                            .stroke(style: StrokeStyle(lineWidth: CGFloat(14 - i), lineCap: .round, lineJoin: .round))
                             .foregroundColor(arcColor.opacity(0.3))
                             .frame(
                                 width: geometry.size.width * ((numberOfArcs - CGFloat(i)) / numberOfArcs),

@@ -21,7 +21,7 @@ struct LevelBar: View {
                         )
                     )
                     .foregroundColor(.white)
-                    .animation(.easeOut)
+//                    .animation(.easeOut)
 
                 Rectangle()
                     .border(.black)

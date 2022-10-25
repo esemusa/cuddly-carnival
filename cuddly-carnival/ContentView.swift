@@ -34,22 +34,23 @@ struct ContentView: View {
             .font(.headline)
 
         VStack(spacing: 20.0) {
-            HStack {
-                Spacer()
-                LevelBar(level: levelMeter.level, label: "Links")
-                Spacer()
-                VSlider(value: $threshold, in: 0...160)
-                Spacer()
-            }.onReceive(levelMeter.$level) {
-                levelDidChange(to: $0)
-            }
+            LevelElement(level: 100.0)
+//            HStack {
+//                Spacer()
+//                LevelBar(level: levelMeter.level, label: "Links")
+//                Spacer()
+//                VSlider(value: $threshold, in: 0...160)
+//                Spacer()
+//            }.onReceive(levelMeter.$level) {
+//                levelDidChange(to: $0)
+//            }
 
             Button(action: onRecordButtonPressed) {
                 Image(systemName: "power")
                     .font(.system(size: 56.0))
                     .foregroundColor(buttonColor)
             }.disabled(levelMeter.state == .permissionMissing)
-        }.padding()
+        }
     }
 
     private func levelDidChange(to level: Double) {

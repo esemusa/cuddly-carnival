@@ -30,14 +30,25 @@ struct ContentView: View {
     }
 
     var body: some View {
+        VStack {
             LevelGauge(level: levelMeter.level)
                 .onReceive(levelMeter.$level) {
                     levelDidChange(to: $0)
                 }
                 .padding()
+
+            Spacer(minLength: 30.0)
+
+            Button(action: onRecordButtonPressed) {
+                Image(systemName: "power")
+                    .font(.system(size: 56.0))
+                    .foregroundColor(buttonColor)
+            }.disabled(levelMeter.state == .permissionMissing)
+        }
     }
 
     private func levelDidChange(to level: Double) {
+        print(level)
         if level > threshold {
             sender.forEach {
                 $0.send()

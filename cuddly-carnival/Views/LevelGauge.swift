@@ -8,7 +8,7 @@ struct LevelGauge: View {
         GeometryReader { geometry in
             VStack(spacing: 0.0) {
                 ForEach(0 ..< 10) { i in
-                    Arc()
+                    Arc(isDisplaying: calculateIsDisplaying(at: i))
                         .frame(
                             width: arcWidth(for: geometry, at: i),
                             height: arcHeight(for: geometry, at: i)
@@ -26,6 +26,10 @@ struct LevelGauge: View {
         }
     }
 
+    private func calculateIsDisplaying(at i: Int) -> Bool {
+        return level > (160 / CGFloat(i))
+    }
+
     private func arcWidth(for geometry: GeometryProxy, at i: Int) -> CGFloat {
         geometry.size.width * ((numberOfArcs - CGFloat(i)) / numberOfArcs)
     }
@@ -39,19 +43,10 @@ struct LevelGauge: View {
             return portion
         }
     }
-
-    private func progress(
-        value: Double,
-        maxValue: Double,
-        height: CGFloat
-    ) -> CGFloat {
-        let percentage = value / maxValue
-        return height - (height * CGFloat(percentage))
-    }
 }
 
 struct LevelElement_Previews: PreviewProvider {
     static var previews: some View {
-        LevelGauge(level: 12.0)
+        LevelGauge(level: 50.0)
     }
 }

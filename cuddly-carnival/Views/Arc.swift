@@ -1,14 +1,26 @@
 import SwiftUI
 
+public typealias CompletionString = (String) -> Void
+
 struct Arc: View {
+    var isDisplaying: Bool
+
+//    @Binding var isActive: Bool
+
     private let contentLineWidth: CGFloat = 14
     private let borderLineWidth: CGFloat = 20
     private let borderColor: Color = .gray
-    private let arcColor: Color = .white.opacity(0.3)
+    private var arcColor: Color {
+        if isDisplaying {
+            return .yellow
+        } else {
+            return .white.opacity(0.8)
+        }
+    }
     
     var body: some View {
         Button(action: {
-            print("arc pressed")
+//            isActive.toggle()
         }) {
             ZStack {
 //                Rectangle()
@@ -57,6 +69,10 @@ struct Arc: View {
 
 struct Arc_Previews: PreviewProvider {
     static var previews: some View {
-        Arc()
+//        Arc(name: "1", isActive: .init(get: { false }, set: { _ in }))
+        VStack {
+            Arc(isDisplaying: true)
+            Arc(isDisplaying: false)
+        }
     }
 }

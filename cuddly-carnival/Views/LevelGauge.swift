@@ -28,7 +28,7 @@ struct LevelGauge: View {
 
     private func calculateIsDisplaying(at i: Int) -> Bool {
         let steps = 100 / numberOfArcs
-        let threshold = (numberOfArcs - CGFloat(i)) * steps
+        let threshold = (numberOfArcs - CGFloat(i + 1)) * steps
         return level > threshold
     }
 
@@ -49,6 +49,6 @@ struct LevelGauge: View {
 
 struct LevelElement_Previews: PreviewProvider {
     static var previews: some View {
-        LevelGauge(level: 50.0)
+        LevelGauge(level: 51)
     }
 }

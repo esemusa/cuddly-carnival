@@ -18,11 +18,11 @@ struct ContentView: View {
     }
 
     @State private var notificationButtonIsDisabled: Bool
-    @State private var threshold: Double
+    @State private var threshold: Int
 
     @ObservedObject private var levelMeter: LevelMeter
 
-    init(notificationButtonIsDisabled: Bool = false, threshold: Double = 5.0, levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
+    init(notificationButtonIsDisabled: Bool = false, threshold: Int = 10, levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
         self.notificationButtonIsDisabled = notificationButtonIsDisabled
         self.threshold = threshold
         self.levelMeter = levelMeter
@@ -47,7 +47,7 @@ struct ContentView: View {
         }
     }
 
-    private func levelDidChange(to level: Double) {
+    private func levelDidChange(to level: Int) {
         print(level)
         if level > threshold {
             sender.forEach {

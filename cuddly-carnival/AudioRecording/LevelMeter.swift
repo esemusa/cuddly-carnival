@@ -10,7 +10,7 @@ class LevelMeter: ObservableObject {
         case permissionMissing
     }
 
-    @Published var level: Double = 0
+    @Published var level: Int = 0
     @Published var state: State = .inactive
 
     private var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
@@ -73,8 +73,7 @@ class LevelMeter: ObservableObject {
         )
     }
 
-    private func level(for decibels: Float) -> Double {
-//        return Double(decibels + 70)
+    private func level(for decibels: Float) -> Int {
         var level: Float = 0.0
         let minDecibels: Float = -90
 
@@ -92,6 +91,6 @@ class LevelMeter: ObservableObject {
             level = powf(adjAmp, 1.0 / root)
         }
 
-        return Double(level * 100)
+        return Int(level * 100)
     }
 }

@@ -1,18 +1,26 @@
 import SwiftUI
 
 struct LevelGauge: View {
-    var level: Double
-    private let numberOfArcs: CGFloat = 10.0
+    var level: Int
+
+    private let numberOfArcs: Int = 10
+    @State private var tappedIndex: Int = -1
 
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0.0) {
                 ForEach(0 ..< 10) { i in
-                    Arc(isDisplaying: calculateIsDisplaying(at: i))
-                        .frame(
-                            width: arcWidth(for: geometry, at: i),
-                            height: arcHeight(for: geometry, at: i)
-                        )
+                    Arc(isDisplaying: calculateIsDisplaying(at: i), isSelected: actualIndex(for: i) <= tappedIndex) {
+                        if tappedIndex == actualIndex(for: i) {
+                            tappedIndex = -1
+                        } else {
+                            tappedIndex = actualIndex(for: i)
+                        }
+                    }
+                    .frame(
+                        width: arcWidth(for: geometry, at: i),
+                        height: arcHeight(for: geometry, at: i)
+                    )
                 }
 
                 Spacer(minLength: 20.0)
@@ -28,22 +36,26 @@ struct LevelGauge: View {
 
     private func calculateIsDisplaying(at i: Int) -> Bool {
         let steps = 100 / numberOfArcs
-        let threshold = (numberOfArcs - CGFloat(i + 1)) * steps
-        return level > threshold
+        let threshold = actualIndex(for: i) * Int(steps)
+        return Int(level) > threshold
     }
 
     private func arcWidth(for geometry: GeometryProxy, at i: Int) -> CGFloat {
-        geometry.size.width * ((numberOfArcs - CGFloat(i)) / numberOfArcs)
+        geometry.size.width * CGFloat((CGFloat(numberOfArcs - i)) / CGFloat(numberOfArcs))
     }
 
     private func arcHeight(for geometry: GeometryProxy, at i: Int) -> CGFloat {
-        let portion = geometry.size.height / numberOfArcs
+        let portion = geometry.size.height / CGFloat(numberOfArcs)
         let width = arcWidth(for: geometry, at: i)
         if width < portion {
             return width
         } else {
             return portion
         }
+    }
+
+    private func actualIndex(for i: Int) -> Int {
+        numberOfArcs - i + 1
     }
 }
 

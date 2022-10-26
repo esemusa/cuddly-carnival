@@ -1,15 +1,21 @@
 import SwiftUI
 
-public typealias CompletionString = (String) -> Void
+public typealias CompletionVoid = () -> Void
 
 struct Arc: View {
     var isDisplaying: Bool
-
-//    @Binding var isActive: Bool
+    var isSelected: Bool
+    var onTap: CompletionVoid
 
     private let contentLineWidth: CGFloat = 14
     private let borderLineWidth: CGFloat = 20
-    private let borderColor: Color = .gray
+    private var borderColor: Color {
+        if isSelected {
+            return .gray
+        } else {
+            return .gray.opacity(0.3)
+        }
+    }
     private var arcColor: Color {
         if isDisplaying {
             return .yellow
@@ -19,33 +25,43 @@ struct Arc: View {
     }
     
     var body: some View {
-        Button(action: {
-//            isActive.toggle()
-        }) {
-            ZStack {
-//                Rectangle()
-//                        .fill(Color.blue)
+        ZStack {
+//            Rectangle()
+//                .fill(Color.blue)
 
-                ArcPath()
-                    .stroke(
-                        style: StrokeStyle(
-                            lineWidth: borderLineWidth,
-                            lineCap: .round,
-                            lineJoin: .round
-                        )
+            ArcPath()
+                .stroke(
+                    style: StrokeStyle(
+                        lineWidth: borderLineWidth,
+                        lineCap: .round,
+                        lineJoin: .round
                     )
-                    .foregroundColor(borderColor)
+                )
+                .foregroundColor(borderColor)
 
-                ArcPath()
-                    .stroke(
-                        style: StrokeStyle(
-                            lineWidth: contentLineWidth,
-                            lineCap: .round,
-                            lineJoin: .round
-                        )
+
+            ArcPath()
+                .stroke(
+                    style: StrokeStyle(
+                        lineWidth: contentLineWidth,
+                        lineCap: .round,
+                        lineJoin: .round
                     )
-                    .foregroundColor(arcColor)
-            }
+                )
+                .foregroundColor(arcColor)
+
+            ArcPath()
+                .stroke(
+                    style: StrokeStyle(
+                        lineWidth: 26,
+                        lineCap: .round,
+                        lineJoin: .round
+                    )
+                )
+                .foregroundColor(.white.opacity(0.000001))
+                .onTapGesture {
+                    onTap()
+                }
         }
     }
 
@@ -69,10 +85,9 @@ struct Arc: View {
 
 struct Arc_Previews: PreviewProvider {
     static var previews: some View {
-//        Arc(name: "1", isActive: .init(get: { false }, set: { _ in }))
         VStack {
-            Arc(isDisplaying: true)
-            Arc(isDisplaying: false)
+            Arc(isDisplaying: true, isSelected: false, onTap: {})
+            Arc(isDisplaying: false, isSelected: true, onTap: {})
         }
     }
 }

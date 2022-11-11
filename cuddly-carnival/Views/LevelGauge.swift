@@ -5,7 +5,7 @@ struct LevelGauge: View {
     var isRecording: Bool
     @Binding var threshold: Int
 
-    @State private var heartSizeChanged = false
+    @State private var pulse = false
     @State private var timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
     private let numberOfArcs: Int = 10
@@ -28,7 +28,7 @@ struct LevelGauge: View {
                         width: arcWidth(for: geometry, at: i),
                         height: arcHeight(for: geometry, at: i)
                     )
-                }.animation(.easeOut)
+                }.animation(.easeOut, value: level)
 
                 Spacer(minLength: 20.0)
 
@@ -38,15 +38,15 @@ struct LevelGauge: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(isRecordButtonActive ? .red : .gray)
                         .rotationEffect(Angle(degrees: 270))
-                        .scaleEffect(heartSizeChanged ? 1.0 : 0.92)
+                        .scaleEffect(pulse ? 1.0 : 0.92)
                         .onReceive(timer) { input in
                             if isRecordButtonActive {
-                                heartSizeChanged.toggle()
+                                pulse.toggle()
                             } else {
-                                heartSizeChanged = true
+                                pulse = true
                             }
                         }
-                        .animation(.easeOut)
+                        .animation(.easeOut, value: pulse)
 
                     Text("\(level)")
                         .font(.system(size: 10.0))

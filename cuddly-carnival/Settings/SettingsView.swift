@@ -1,47 +1,44 @@
 import SwiftUI
 
 struct SettingsView: View {
-    private let sender: [Sender]
     @State private var stepperBindings = [Int]()
+    private let sender: [Sender]
     
     var body: some View {
-        VStack {
+        ScrollView {
             ForEach(sender.indices, id: \.self) { index in
                 if stepperBindings.count > index {
                     VStack {
-                        Text(sender[index].settingTitle)
+                        HStack {
+                            Text(sender[index].settingTitle).bold()
+                            Spacer()
+                        }
                         Stepper(
                             "Benachrichtige mich alle \($stepperBindings[index].wrappedValue) Sekunden",
-                            value: $stepperBindings[index]
+                            value: $stepperBindings[index],
+                            in: 1...Int.max
                         )
-                        Divider()
-                    }
+                    }.padding()
+                    Divider()
                 }
-                
             }
+            Spacer()
         }
-        .onChange(of: stepperBindings) {
-            zip($0, sender).forEach { stepperValue, sender in
-                setSetting(for: sender.settingTitle, with: stepperValue)
-            }
-        }
+        .padding()
         .onAppear {
             let valuesForSender = sender.map {
-                getSetting(for: $0.settingTitle)
+                $0.setting
             }
             self.stepperBindings = valuesForSender
+        }
+        .onDisappear {
+            zip(stepperBindings, sender).forEach { stepperValue, sender in
+                sender.save(setting: stepperValue)
+            }
         }
     }
     
     init(sender: [Sender]) {
         self.sender = sender
-    }
-    
-    private func getSetting(for setting: String) -> Int {
-        UserDefaults.standard.integer(forKey: "settings.\(setting)")
-    }
-    
-    private func setSetting(for setting: String, with value: Int) {
-        UserDefaults.standard.setValue(value, forKey: "settings.\(setting)")
     }
 }

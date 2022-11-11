@@ -1,21 +1,21 @@
 import UserNotifications
+import SwiftUI
 
 class LocalNotificationSender: Sender {
-    private var nextAllowedTry: Date? = nil
-    private let idleTime: Double = 20 // The seconds to wait until sending a new notification
+    let settingTitle: String = "Benachrichtigungen"
+    let senderTimeManager = SenderTimeManager()
     
-    var settingTitle: String = "Benachrichtigungen"
+    @AppStorage("setting.notification")
+    private(set) var setting: Int = 20
 
     func send() {
         // Check, if we are allowed to send again.
-        if let nextTry = nextAllowedTry, nextTry > Date.now {
+        guard senderTimeManager.checkTime(for: setting) else {
             return
         }
 
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] success, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
-                self?.nextAllowedTry = Date(timeIntervalSinceNow: self?.idleTime ?? 20)
-
                 let content = UNMutableNotificationContent()
                 content.title = "Alarm!"
                 content.subtitle = "Aufwachen!"
@@ -28,5 +28,9 @@ class LocalNotificationSender: Sender {
                 UNUserNotificationCenter.current().add(request)
             }
         }
+    }
+    
+    func save(setting: Int) {
+        self.setting = setting
     }
 }

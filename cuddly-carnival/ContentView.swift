@@ -5,18 +5,6 @@ struct ContentView: View {
 
     private var sender: [Sender]
 
-    private var buttonColor: Color {
-        switch levelMeter.state {
-
-        case .active:
-            return .red
-        case .inactive:
-            return .green
-        case .permissionMissing:
-            return .gray
-        }
-    }
-
     @Environment(\.scenePhase) var scenePhase
     @State private var threshold: Int = -1
 
@@ -71,15 +59,6 @@ struct ContentView: View {
                 $0.send()
             }
         }
-    }
-
-    private func onRecordButtonPressed() {
-        if levelMeter.state == .active {
-            levelMeter.stop()
-            return
-        }
-
-        levelMeter.start()
     }
 }
 

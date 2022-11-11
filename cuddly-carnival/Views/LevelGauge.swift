@@ -38,19 +38,19 @@ struct LevelGauge: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(isRecordButtonActive ? .red : .gray)
                         .rotationEffect(Angle(degrees: 270))
-                        .scaleEffect(pulse ? 1.0 : 0.92)
-                        .onReceive(timer) { input in
-                            if isRecordButtonActive {
-                                pulse.toggle()
-                            } else {
-                                pulse = true
-                            }
-                        }
-                        .animation(.easeOut, value: pulse)
 
-                    Text("\(level)")
+                    Text("\(threshold + 1)")
                         .font(.system(size: 10.0))
                 }
+                .scaleEffect(pulse ? 1.0 : 0.92)
+                .onReceive(timer) { input in
+                    if isRecordButtonActive {
+                        pulse.toggle()
+                    } else {
+                        pulse = true
+                    }
+                }
+                .animation(.easeOut, value: pulse)
             }
         }
     }

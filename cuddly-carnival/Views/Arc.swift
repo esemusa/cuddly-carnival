@@ -51,6 +51,8 @@ struct Arc: View {
                 )
                 .foregroundColor(arcColor)
 
+            // Almost fully transparent Arc over the actual arc to receive tap-gestures.
+            // Setting this arc's opacity to 0 implicitly disabled tpuch gestures, so we set it to 0.000001.
             ArcPath()
                 .stroke(
                     style: StrokeStyle(

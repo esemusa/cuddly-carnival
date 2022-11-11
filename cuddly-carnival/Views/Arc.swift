@@ -14,7 +14,7 @@ struct Arc: View {
         if isEnabled {
             return .primary
         } else {
-            return .secondary.opacity(0.85)
+            return .secondary.opacity(0.5)
         }
     }
 
@@ -23,8 +23,6 @@ struct Arc: View {
             return .accentColor.opacity(0.85)
         } else if !isEnabled && isDisplaying {
             return .accentColor.opacity(0.2)
-        } else if isEnabled && !isDisplaying {
-            return .gray
         } else {
             return .clear
         }

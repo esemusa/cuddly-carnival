@@ -17,14 +17,12 @@ struct ContentView: View {
         }
     }
 
-    @State private var notificationButtonIsDisabled: Bool
-    @State private var threshold: Double
+    @Environment(\.scenePhase) var scenePhase
+    @State private var threshold: Int = -1
 
     @ObservedObject private var levelMeter: LevelMeter
 
-    init(notificationButtonIsDisabled: Bool = false, threshold: Double = 5.0, levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
-        self.notificationButtonIsDisabled = notificationButtonIsDisabled
-        self.threshold = threshold
+    init(levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
         self.levelMeter = levelMeter
         self.sender = sender
     }
@@ -35,31 +33,30 @@ struct ContentView: View {
                 NavigationLink(destination: SettingsView(sender: sender)) {
                     Image(systemName: "gearshape.fill").tint(.purple)
                 }
-                Text("Ding Dong")
-                    .font(.headline)
-
-                VStack(spacing: 20.0) {
-                    HStack {
-                        Spacer()
-                        LevelBar(level: levelMeter.level, label: "Links")
-                        Spacer()
-                        VSlider(value: $threshold, in: 0...160)
-                        Spacer()
-                    }.onReceive(levelMeter.$level) {
-                        levelDidChange(to: $0)
+                LevelGauge(
+                    level: levelMeter.level,
+                    isRecording: levelMeter.state == .active,
+                    threshold: $threshold
+                )
+                .onReceive(levelMeter.$level) {
+                    levelDidChange(to: $0)
+                }
+                .padding()
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .active:
+                        levelMeter.start()
+                    default:
+                        if threshold == -1 {
+                            levelMeter.stop()
+                        }
                     }
-
-                    Button(action: onRecordButtonPressed) {
-                        Image(systemName: "power")
-                            .font(.system(size: 56.0))
-                            .foregroundColor(buttonColor)
-                    }.disabled(levelMeter.state == .permissionMissing)
-                }.padding()
+                }
             }
         }
     }
 
-    private func levelDidChange(to level: Double) {
+    private func levelDidChange(to level: Int) {
         if level > threshold {
             sender.forEach {
                 $0.send()

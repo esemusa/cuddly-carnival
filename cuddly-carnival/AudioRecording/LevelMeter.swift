@@ -10,7 +10,7 @@ class LevelMeter: ObservableObject {
         case permissionMissing
     }
 
-    @Published var level: Double = 0
+    @Published var level: Int = 0
     @Published var state: State = .inactive
 
     private var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
@@ -24,7 +24,7 @@ class LevelMeter: ObservableObject {
         let recordSettings: [String: Any] = [
             AVFormatIDKey:              kAudioFormatAppleIMA4,
             AVSampleRateKey:            44100.0,
-            AVNumberOfChannelsKey:      2,
+            AVNumberOfChannelsKey:      1,
             AVEncoderBitRateKey:        12800,
             AVLinearPCMBitDepthKey:     16,
             AVEncoderAudioQualityKey:   AVAudioQuality.max.rawValue
@@ -48,7 +48,7 @@ class LevelMeter: ObservableObject {
 
                 self?.state = .active
 
-                self?.timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                self?.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                     self?.levelTimerCallback()
                 }
             } else {
@@ -69,31 +69,28 @@ class LevelMeter: ObservableObject {
         level = level(
             for: (
                 (recorder?.peakPower(forChannel: 0) ?? 0)
-                +
-                (recorder?.peakPower(forChannel: 1) ?? 0)
             )
         )
     }
 
-    private func level(for decibels: Float) -> Double {
-        return Double(decibels + 160)
-//        var level: Float = 0.0
-//        let minDecibels: Float = -90
-//
-//        if (decibels < minDecibels) {
-//            level = 0
-//        } else if (decibels >= 0) {
-//            level = 1
-//        } else {
-//            let root: Float = 2.0
-//            let minAmp = powf(10.0, 0.05 * minDecibels)
-//            let inverseAmpRange = 1.0 / ( 1.0 - minAmp)
-//            let amp = powf(10.0, 0.05 * decibels)
-//            let adjAmp = (amp - minAmp) * inverseAmpRange
-//
-//            level = powf(adjAmp, 1.0 / root)
-//        }
-//
-//        return Double(level * 100)
+    private func level(for decibels: Float) -> Int {
+        var level: Float = 0.0
+        let minDecibels: Float = -90
+
+        if (decibels < minDecibels) {
+            level = 0
+        } else if (decibels >= 0) {
+            level = 1
+        } else {
+            let root: Float = 2.0
+            let minAmp = powf(10.0, 0.05 * minDecibels)
+            let inverseAmpRange = 1.0 / ( 1.0 - minAmp)
+            let amp = powf(10.0, 0.05 * decibels)
+            let adjAmp = (amp - minAmp) * inverseAmpRange
+
+            level = powf(adjAmp, 1.0 / root)
+        }
+
+        return Int(level * 100)
     }
 }

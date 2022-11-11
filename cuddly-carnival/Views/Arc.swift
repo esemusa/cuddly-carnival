@@ -12,9 +12,9 @@ struct Arc: View {
 
     private var borderColor: Color {
         if isEnabled {
-            return .secondary
+            return .primary
         } else {
-            return .secondary.opacity(0.5)
+            return .secondary.opacity(0.85)
         }
     }
 

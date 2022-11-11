@@ -30,10 +30,10 @@ struct LevelGauge: View {
                 Spacer(minLength: 20.0)
 
                 ZStack {
-                    Image(systemName: "speaker")
-                        .font(.system(size: 100.0))
+                    Image(systemName: "record.circle")
+                        .font(.system(size: 80.0))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(isRecording ? .red : .gray)
+                        .foregroundColor((isRecording && threshold >= 0) ? .red : .gray)
                         .rotationEffect(Angle(degrees: 270))
 
                     Text("\(level)")

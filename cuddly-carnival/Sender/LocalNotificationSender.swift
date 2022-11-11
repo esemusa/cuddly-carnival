@@ -3,6 +3,8 @@ import UserNotifications
 class LocalNotificationSender: Sender {
     private var nextAllowedTry: Date? = nil
     private let idleTime: Double = 20 // The seconds to wait until sending a new notification
+    
+    var settingTitle: String = "Benachrichtigungen"
 
     func send() {
         // Check, if we are allowed to send again.

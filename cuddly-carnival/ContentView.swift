@@ -30,20 +30,28 @@ struct ContentView: View {
     }
 
     var body: some View {
-        VStack {
-            LevelGauge(level: levelMeter.level)
+        NavigationView {
+            VStack {
+                NavigationLink(destination: SettingsView(sender: sender)) {
+                    Image(systemName: "gearshape.fill").tint(.purple)
+                }
+                Text("Ding Dong")
+                    .font(.headline)
+
+                LevelGauge(level: levelMeter.level)
                 .onReceive(levelMeter.$level) {
                     levelDidChange(to: $0)
                 }
                 .padding()
 
-            Spacer(minLength: 30.0)
+                Spacer(minLength: 30.0)
 
-            Button(action: onRecordButtonPressed) {
-                Image(systemName: "power")
-                    .font(.system(size: 56.0))
-                    .foregroundColor(buttonColor)
-            }.disabled(levelMeter.state == .permissionMissing)
+                Button(action: onRecordButtonPressed) {
+                    Image(systemName: "power")
+                        .font(.system(size: 56.0))
+                        .foregroundColor(buttonColor)
+                }.disabled(levelMeter.state == .permissionMissing)
+            }
         }
     }
 

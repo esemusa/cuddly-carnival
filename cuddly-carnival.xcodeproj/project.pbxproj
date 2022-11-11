@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6D46242B290C295A00CAE4E9 /* DebugConsoleSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D46242A290C295A00CAE4E9 /* DebugConsoleSender.swift */; };
 		6D9036022902B89300386AF9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9036012902B89300386AF9 /* SettingsView.swift */; };
+		6D9FA40F291EB86600AABBBE /* SenderTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9FA40E291EB86600AABBBE /* SenderTimeManager.swift */; };
 		6DAD7D6B28DE0600001B1DF2 /* cuddly_carnivalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAD7D6A28DE0600001B1DF2 /* cuddly_carnivalApp.swift */; };
 		6DAD7D6D28DE0600001B1DF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAD7D6C28DE0600001B1DF2 /* ContentView.swift */; };
 		6DAD7D6F28DE0601001B1DF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DAD7D6E28DE0601001B1DF2 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		6D46242A290C295A00CAE4E9 /* DebugConsoleSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugConsoleSender.swift; sourceTree = "<group>"; };
 		6D9036012902B89300386AF9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6D9FA40E291EB86600AABBBE /* SenderTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderTimeManager.swift; sourceTree = "<group>"; };
 		6DAD7D6728DE0600001B1DF2 /* cuddly-carnival.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cuddly-carnival.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DAD7D6A28DE0600001B1DF2 /* cuddly_carnivalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cuddly_carnivalApp.swift; sourceTree = "<group>"; };
 		6DAD7D6C28DE0600001B1DF2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				6D46242A290C295A00CAE4E9 /* DebugConsoleSender.swift */,
 				EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */,
 				EDD403A528F068E1003EF060 /* Sender.swift */,
+				6D9FA40E291EB86600AABBBE /* SenderTimeManager.swift */,
 			);
 			path = Sender;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				ED8B2FCC28EC78AA002952CA /* LevelMeter.swift in Sources */,
 				EDD403A328F068A9003EF060 /* LocalNotificationSender.swift in Sources */,
 				EDDEBA4B29066405002FF58A /* LevelGauge.swift in Sources */,
+				6D9FA40F291EB86600AABBBE /* SenderTimeManager.swift in Sources */,
 				6D46242B290C295A00CAE4E9 /* DebugConsoleSender.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

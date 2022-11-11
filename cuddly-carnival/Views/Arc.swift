@@ -9,6 +9,7 @@ struct Arc: View {
 
     private let contentLineWidth: CGFloat = 14
     private let borderLineWidth: CGFloat = 20
+
     private var borderColor: Color {
         if isEnabled {
             return .secondary
@@ -16,9 +17,10 @@ struct Arc: View {
             return .secondary.opacity(0.5)
         }
     }
+
     private var arcColor: Color {
         if isEnabled && isDisplaying {
-            return .accentColor.opacity(0.5)
+            return .accentColor.opacity(0.85)
         } else if !isEnabled && isDisplaying {
             return .accentColor.opacity(0.2)
         } else if isEnabled && !isDisplaying {

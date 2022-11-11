@@ -29,29 +29,34 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                NavigationLink(destination: SettingsView(sender: sender)) {
-                    Image(systemName: "gearshape.fill").tint(.purple)
-                }
-                LevelGauge(
-                    level: levelMeter.level,
-                    isRecording: levelMeter.state == .active,
-                    threshold: $threshold
-                )
-                .onReceive(levelMeter.$level) {
-                    levelDidChange(to: $0)
-                }
-                .padding()
-                .onChange(of: scenePhase) { newPhase in
-                    switch newPhase {
-                    case .active:
-                        levelMeter.start()
-                    default:
-                        if threshold == -1 {
-                            levelMeter.stop()
+            ZStack(alignment: .bottomTrailing) {
+                VStack {
+                    LevelGauge(
+                        level: levelMeter.level,
+                        isRecording: levelMeter.state == .active,
+                        threshold: $threshold
+                    )
+                    .onReceive(levelMeter.$level) {
+                        levelDidChange(to: $0)
+                    }
+                    .padding()
+                    .onChange(of: scenePhase) { newPhase in
+                        switch newPhase {
+                        case .active:
+                            levelMeter.start()
+                        default:
+                            if threshold == -1 {
+                                levelMeter.stop()
+                            }
                         }
                     }
                 }
+
+                NavigationLink(
+                    destination: SettingsView(sender: sender)
+                ) {
+                    Image(systemName: "gearshape.fill").tint(.accentColor)
+                }.padding()
             }
         }
     }

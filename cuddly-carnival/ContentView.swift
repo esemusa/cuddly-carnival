@@ -55,8 +55,12 @@ struct ContentView: View {
                 NavigationLink(
                     destination: SettingsView(sender: sender)
                 ) {
-                    Image(systemName: "gearshape.fill").tint(.accentColor)
-                }.padding()
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 30.0))
+                        .tint(.accentColor)
+                }
+                .padding(.bottom, 26)
+                .padding(.trailing, 20)
             }
         }
     }

@@ -36,7 +36,7 @@ struct LevelGauge: View {
                         .foregroundColor(isRecording ? .red : .gray)
                         .rotationEffect(Angle(degrees: 270))
 
-                    Text("\(level) dB")
+                    Text("\(level)")
                         .font(.system(size: 10.0))
                 }
             }

@@ -28,23 +28,28 @@ struct ContentView: View {
     }
 
     var body: some View {
-        VStack {
-            LevelGauge(
-                level: levelMeter.level,
-                isRecording: levelMeter.state == .active,
-                threshold: $threshold
-            )
-            .onReceive(levelMeter.$level) {
-                levelDidChange(to: $0)
-            }
-            .padding()
-            .onChange(of: scenePhase) { newPhase in
-                switch newPhase {
-                case .active:
-                    levelMeter.start()
-                default:
-                    if threshold == -1 {
-                        levelMeter.stop()
+        NavigationView {
+            VStack {
+                NavigationLink(destination: SettingsView(sender: sender)) {
+                    Image(systemName: "gearshape.fill").tint(.purple)
+                }
+                LevelGauge(
+                    level: levelMeter.level,
+                    isRecording: levelMeter.state == .active,
+                    threshold: $threshold
+                )
+                .onReceive(levelMeter.$level) {
+                    levelDidChange(to: $0)
+                }
+                .padding()
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .active:
+                        levelMeter.start()
+                    default:
+                        if threshold == -1 {
+                            levelMeter.stop()
+                        }
                     }
                 }
             }

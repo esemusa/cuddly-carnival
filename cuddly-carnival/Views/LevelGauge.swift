@@ -2,19 +2,23 @@ import SwiftUI
 
 struct LevelGauge: View {
     var level: Int
+    var isRecording: Bool
+    @Binding var threshold: Int
 
     private let numberOfArcs: Int = 10
-    @State private var tappedIndex: Int = -1
 
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0.0) {
                 ForEach(0 ..< 10) { i in
-                    Arc(isDisplaying: calculateIsDisplaying(at: i), isSelected: actualIndex(for: i) <= tappedIndex) {
-                        if tappedIndex == actualIndex(for: i) {
-                            tappedIndex = -1
+                    Arc(
+                        isDisplaying: calculateIsDisplaying(at: i),
+                        isEnabled: actualIndex(for: i) <= threshold
+                    ) {
+                        if threshold == actualIndex(for: i) {
+                            threshold = -1
                         } else {
-                            tappedIndex = actualIndex(for: i)
+                            threshold = actualIndex(for: i)
                         }
                     }
                     .frame(
@@ -25,11 +29,15 @@ struct LevelGauge: View {
 
                 Spacer(minLength: 20.0)
 
-                Image(systemName: "speaker")
-                    .font(.system(size: 56.0))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
-                    .rotationEffect(Angle(degrees: 270))
+                ZStack {
+                    Image(systemName: "speaker")
+                        .font(.system(size: 100.0))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(isRecording ? .red : .gray)
+                        .rotationEffect(Angle(degrees: 270))
+
+                    Text("\(level) dB")
+                }
             }
         }
     }
@@ -55,12 +63,12 @@ struct LevelGauge: View {
     }
 
     private func actualIndex(for i: Int) -> Int {
-        numberOfArcs - i + 1
+        numberOfArcs - i - 1
     }
 }
 
 struct LevelElement_Previews: PreviewProvider {
     static var previews: some View {
-        LevelGauge(level: 51)
+        LevelGauge(level: 51, isRecording: false, threshold: .constant(-1))
     }
 }

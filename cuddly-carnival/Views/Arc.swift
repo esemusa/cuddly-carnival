@@ -4,31 +4,32 @@ public typealias CompletionVoid = () -> Void
 
 struct Arc: View {
     var isDisplaying: Bool
-    var isSelected: Bool
+    var isEnabled: Bool
     var onTap: CompletionVoid
 
     private let contentLineWidth: CGFloat = 14
     private let borderLineWidth: CGFloat = 20
     private var borderColor: Color {
-        if isSelected {
-            return .gray
+        if isEnabled {
+            return .secondary
         } else {
-            return .gray.opacity(0.3)
+            return .secondary.opacity(0.5)
         }
     }
     private var arcColor: Color {
-        if isDisplaying {
-            return .yellow
+        if isEnabled && isDisplaying {
+            return .accentColor.opacity(0.5)
+        } else if !isEnabled && isDisplaying {
+            return .accentColor.opacity(0.2)
+        } else if isEnabled && !isDisplaying {
+            return .gray
         } else {
-            return .white.opacity(0.8)
+            return .clear
         }
     }
     
     var body: some View {
         ZStack {
-//            Rectangle()
-//                .fill(Color.blue)
-
             ArcPath()
                 .stroke(
                     style: StrokeStyle(
@@ -86,8 +87,15 @@ struct Arc: View {
 struct Arc_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            Arc(isDisplaying: true, isSelected: false, onTap: {})
-            Arc(isDisplaying: false, isSelected: true, onTap: {})
+            Text("Enabled and Displaying")
+            Arc(isDisplaying: true, isEnabled: true, onTap: {})
+            Text("Enabled and not Displaying")
+            Arc(isDisplaying: false, isEnabled: true, onTap: {})
+
+            Text("Disabled and Displaying")
+            Arc(isDisplaying: true, isEnabled: false, onTap: {})
+            Text("Disabled and NotDisplaying")
+            Arc(isDisplaying: false, isEnabled: false, onTap: {})
         }
     }
 }

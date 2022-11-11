@@ -17,38 +17,41 @@ struct ContentView: View {
         }
     }
 
-    @State private var notificationButtonIsDisabled: Bool
-    @State private var threshold: Int
+    @Environment(\.scenePhase) var scenePhase
+    @State private var threshold: Int = -1
 
     @ObservedObject private var levelMeter: LevelMeter
 
-    init(notificationButtonIsDisabled: Bool = false, threshold: Int = 10, levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
-        self.notificationButtonIsDisabled = notificationButtonIsDisabled
-        self.threshold = threshold
+    init(levelMeter: LevelMeter = LevelMeter(), sender: [Sender] = []) {
         self.levelMeter = levelMeter
         self.sender = sender
     }
 
     var body: some View {
         VStack {
-            LevelGauge(level: levelMeter.level)
-                .onReceive(levelMeter.$level) {
-                    levelDidChange(to: $0)
+            LevelGauge(
+                level: levelMeter.level,
+                isRecording: levelMeter.state == .active,
+                threshold: $threshold
+            )
+            .onReceive(levelMeter.$level) {
+                levelDidChange(to: $0)
+            }
+            .padding()
+            .onChange(of: scenePhase) { newPhase in
+                switch newPhase {
+                case .active:
+                    levelMeter.start()
+                default:
+                    if threshold == -1 {
+                        levelMeter.stop()
+                    }
                 }
-                .padding()
-
-            Spacer(minLength: 30.0)
-
-            Button(action: onRecordButtonPressed) {
-                Image(systemName: "power")
-                    .font(.system(size: 56.0))
-                    .foregroundColor(buttonColor)
-            }.disabled(levelMeter.state == .permissionMissing)
+            }
         }
     }
 
     private func levelDidChange(to level: Int) {
-        print(level)
         if level > threshold {
             sender.forEach {
                 $0.send()

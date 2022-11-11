@@ -36,7 +36,8 @@ struct LevelGauge: View {
                         .foregroundColor(isRecording ? .red : .gray)
                         .rotationEffect(Angle(degrees: 270))
 
-                    Text("\(level) dB")
+                    Text("\(level)")
+                        .font(.system(size: 10.0))
                 }
             }
         }
@@ -53,7 +54,7 @@ struct LevelGauge: View {
     }
 
     private func arcHeight(for geometry: GeometryProxy, at i: Int) -> CGFloat {
-        let portion = geometry.size.height / CGFloat(numberOfArcs)
+        let portion = geometry.size.height / CGFloat(numberOfArcs) - 10
         let width = arcWidth(for: geometry, at: i)
         if width < portion {
             return width

@@ -91,6 +91,6 @@ class LevelMeter: ObservableObject {
             level = powf(adjAmp, 1.0 / root)
         }
 
-        return Int(level * 100)
+        return Int(level * 10)
     }
 }

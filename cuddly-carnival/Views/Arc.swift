@@ -12,17 +12,21 @@ struct Arc: View {
 
     private var borderColor: Color {
         if isEnabled {
-            return .primary
+            return .ccEnabled
         } else {
-            return .secondary.opacity(0.5)
+            return .ccDisabled
         }
+    }
+
+    private var arcBackgroundColor: Color {
+        .ccArcBackground
     }
 
     private var arcColor: Color {
         if isEnabled && isDisplaying {
-            return .accentColor.opacity(0.85)
+            return .ccRed
         } else if !isEnabled && isDisplaying {
-            return .accentColor.opacity(0.2)
+            return .ccGreen
         } else {
             return .clear
         }
@@ -40,6 +44,15 @@ struct Arc: View {
                 )
                 .foregroundColor(borderColor)
 
+            ArcPath()
+                .stroke(
+                    style: StrokeStyle(
+                        lineWidth: contentLineWidth,
+                        lineCap: .round,
+                        lineJoin: .round
+                    )
+                )
+                .foregroundColor(arcBackgroundColor)
 
             ArcPath()
                 .stroke(

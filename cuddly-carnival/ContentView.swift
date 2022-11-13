@@ -54,7 +54,7 @@ struct ContentView: View {
     }
 
     private func levelDidChange(to level: Int) {
-        if level > threshold {
+        if threshold != -1 && level > threshold {
             sender.forEach {
                 $0.send()
             }

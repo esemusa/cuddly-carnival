@@ -36,10 +36,10 @@ struct LevelGauge: View {
                     Image(systemName: "record.circle")
                         .font(.system(size: 80.0))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(isRecordButtonActive ? .red : .gray)
+                        .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
                         .rotationEffect(Angle(degrees: 270))
 
-                    Text("\(threshold + 1)")
+                    Text("\(level)")
                         .font(.system(size: 10.0))
                 }
                 .scaleEffect(pulse ? 1.0 : 0.92)
@@ -60,7 +60,7 @@ struct LevelGauge: View {
     }
 
     private func calculateIsDisplaying(at i: Int) -> Bool {
-        let steps = 100 / numberOfArcs
+        let steps = 10 / numberOfArcs
         let threshold = actualIndex(for: i) * Int(steps)
         return Int(level) > threshold
     }
@@ -86,6 +86,6 @@ struct LevelGauge: View {
 
 struct LevelElement_Previews: PreviewProvider {
     static var previews: some View {
-        LevelGauge(level: 51, isRecording: false, threshold: .constant(-1))
+        LevelGauge(level: 3, isRecording: false, threshold: .constant(-1))
     }
 }

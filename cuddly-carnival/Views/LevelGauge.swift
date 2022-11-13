@@ -19,6 +19,7 @@ struct LevelGauge: View {
                         isEnabled: actualIndex(for: i) <= threshold,
                         isThresholdBroken: thresholdBroken
                     ) {
+                        // onTap
                         if threshold == actualIndex(for: i) {
                             threshold = -1
                         } else {
@@ -67,7 +68,7 @@ struct LevelGauge: View {
     private func calculateIsDisplaying(at i: Int) -> Bool {
         let steps = 10 / numberOfArcs
         let threshold = actualIndex(for: i) * Int(steps)
-        return Int(level) > threshold
+        return Int(level) >= threshold
     }
 
     private func arcWidth(for geometry: GeometryProxy, at i: Int) -> CGFloat {
@@ -85,7 +86,7 @@ struct LevelGauge: View {
     }
 
     private func actualIndex(for i: Int) -> Int {
-        numberOfArcs - i - 1
+        numberOfArcs - i
     }
 }
 

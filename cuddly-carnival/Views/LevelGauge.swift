@@ -16,7 +16,8 @@ struct LevelGauge: View {
                 ForEach(0 ..< 10) { i in
                     Arc(
                         isDisplaying: calculateIsDisplaying(at: i),
-                        isEnabled: actualIndex(for: i) <= threshold
+                        isEnabled: actualIndex(for: i) <= threshold,
+                        isThresholdBroken: thresholdBroken
                     ) {
                         if threshold == actualIndex(for: i) {
                             threshold = -1
@@ -53,6 +54,10 @@ struct LevelGauge: View {
                 .animation(.easeOut, value: pulse)
             }
         }
+    }
+
+    private var thresholdBroken: Bool {
+        threshold != -1 && level >= threshold
     }
 
     private var isRecordButtonActive: Bool {

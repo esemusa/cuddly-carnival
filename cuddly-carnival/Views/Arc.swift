@@ -5,6 +5,7 @@ public typealias CompletionVoid = () -> Void
 struct Arc: View {
     var isDisplaying: Bool
     var isEnabled: Bool
+    var isThresholdBroken: Bool
     var onTap: CompletionVoid
 
     private let contentLineWidth: CGFloat = 14
@@ -23,11 +24,12 @@ struct Arc: View {
     }
 
     private var arcColor: Color {
-        if isEnabled && isDisplaying {
+        switch (isEnabled, isDisplaying, isThresholdBroken) {
+        case (false, true, true):
             return .ccRed
-        } else if !isEnabled && isDisplaying {
+        case (true, true, _), (false, true, _):
             return .ccGreen
-        } else {
+        default:
             return .clear
         }
     }
@@ -102,15 +104,17 @@ struct Arc: View {
 struct Arc_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            Text("Enabled and Displaying")
-            Arc(isDisplaying: true, isEnabled: true, onTap: {})
-            Text("Enabled and not Displaying")
-            Arc(isDisplaying: false, isEnabled: true, onTap: {})
+            Text("Enabled, Displaying, !ThresholdBroken")
+            Arc(isDisplaying: true, isEnabled: true, isThresholdBroken: false, onTap: {})
+            Text("Enabled, !Displaying, !ThresholdBroken")
+            Arc(isDisplaying: false, isEnabled: true, isThresholdBroken: false, onTap: {})
+            Text("Enabled, Displaying, ThresholdBroken")
+            Arc(isDisplaying: false, isEnabled: true, isThresholdBroken: true, onTap: {})
 
-            Text("Disabled and Displaying")
-            Arc(isDisplaying: true, isEnabled: false, onTap: {})
-            Text("Disabled and NotDisplaying")
-            Arc(isDisplaying: false, isEnabled: false, onTap: {})
+            Text("Disabled, Displaying, ThresholdBroken")
+            Arc(isDisplaying: true, isEnabled: false, isThresholdBroken: true, onTap: {})
+            Text("Disabled, !Displaying, ThresholdBroken")
+            Arc(isDisplaying: false, isEnabled: false, isThresholdBroken: true, onTap: {})
         }
     }
 }

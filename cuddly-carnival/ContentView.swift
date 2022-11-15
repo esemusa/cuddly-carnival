@@ -7,6 +7,7 @@ struct ContentView: View {
 
     @Environment(\.scenePhase) var scenePhase
     @State private var threshold: Int = -1
+    @State private var lastThreshold: Int = -1
 
     @ObservedObject private var levelMeter: LevelMeter
 
@@ -22,12 +23,18 @@ struct ContentView: View {
                     LevelGauge(
                         level: levelMeter.level,
                         isRecording: levelMeter.state == .active,
-                        threshold: $threshold
+                        threshold: $threshold,
+                        lastThreshold: $lastThreshold
                     )
                     .onReceive(levelMeter.$level) {
                         levelDidChange(to: $0)
                     }
                     .padding()
+                    .onChange(of: threshold) {
+                        if $0 != -1 {
+                            lastThreshold = $0
+                        }
+                    }
                     .onChange(of: scenePhase) { newPhase in
                         switch newPhase {
                         case .active:

@@ -4,6 +4,7 @@ struct LevelGauge: View {
     var level: Int
     var isRecording: Bool
     @Binding var threshold: Int
+    @Binding var lastThreshold: Int
 
     @State private var pulse = false
     @State private var timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
@@ -34,15 +35,29 @@ struct LevelGauge: View {
 
                 Spacer(minLength: 20.0)
 
-                ZStack {
-                    Image(systemName: "record.circle")
-                        .font(.system(size: 80.0))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
-                        .rotationEffect(Angle(degrees: 270))
-
-                    Text("\(level)")
-                        .font(.system(size: 10.0))
+                Button {
+                    if threshold == -1 {
+                        if lastThreshold == -1 {
+                            threshold = 5
+                        } else {
+                            threshold = lastThreshold
+                        }
+                    } else {
+                        threshold = -1
+                    }
+                } label: {
+                    ZStack {
+                        Image(systemName: "record.circle")
+                            .font(.system(size: 80.0))
+                            .multilineTextAlignment(.center)
+                            .rotationEffect(Angle(degrees: 270))
+                            .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
+                        
+                        Text("\(level)")
+                            .font(.system(size: 10.0))
+                            .foregroundColor(.primary)
+                    }
+                    
                 }
                 .scaleEffect(pulse ? 1.0 : 0.92)
                 .onReceive(timer) { input in
@@ -92,6 +107,6 @@ struct LevelGauge: View {
 
 struct LevelElement_Previews: PreviewProvider {
     static var previews: some View {
-        LevelGauge(level: 3, isRecording: false, threshold: .constant(-1))
+        LevelGauge(level: 3, isRecording: false, threshold: .constant(-1), lastThreshold: .constant(-1))
     }
 }

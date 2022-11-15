@@ -12,7 +12,7 @@ struct Arc: View {
     private let borderLineWidth: CGFloat = 20
 
     private var borderColor: Color {
-        if isEnabled {
+        if isEnabled || isThresholdBroken {
             return .ccEnabled
         } else {
             return .ccDisabled

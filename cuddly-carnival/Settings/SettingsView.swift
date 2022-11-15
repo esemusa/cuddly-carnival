@@ -5,25 +5,27 @@ struct SettingsView: View {
     private let sender: [Sender]
     
     var body: some View {
-        ScrollView {
+        Form {
+            Text("Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!")
             ForEach(sender.indices, id: \.self) { index in
                 if stepperBindings.count > index {
-                    VStack {
+                    Section(header: Text(sender[index].settingTitle), footer: Text(sender[index].settingDescription)) {
                         HStack {
-                            Text(sender[index].settingTitle).bold()
-                            Spacer()
+                            Image(systemName: sender[index].icon)
+                                .font(.system(size: 25.0))
+                            
+                            Stepper(
+                                value: $stepperBindings[index],
+                                in: 1...Int.max
+                            ) {
+                                Text("Alle **\($stepperBindings[index].wrappedValue)** Sekunden")
+                            }
                         }
-                        Stepper(
-                            "Benachrichtige mich alle \($stepperBindings[index].wrappedValue) Sekunden",
-                            value: $stepperBindings[index],
-                            in: 1...Int.max
-                        )
-                    }.padding()
-                    Divider()
+                    }
                 }
             }
-            Spacer()
         }
+        .navigationTitle("Einstellungen")
         .padding()
         .onAppear {
             let valuesForSender = sender.map {

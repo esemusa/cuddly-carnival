@@ -2,6 +2,8 @@ import SwiftUI
 import Foundation
 
 class DebugConsoleSender: Sender {
+    let icon: String = "bell"
+    let settingDescription: String = "Diese Benachrichtigungen werden über die Konsole ausgegeben."
     let settingTitle: String = "DEBUG SENDER"
     let senderTimeManager = SenderTimeManager()
     

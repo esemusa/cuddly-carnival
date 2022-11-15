@@ -2,7 +2,9 @@ import UserNotifications
 import SwiftUI
 
 class LocalNotificationSender: Sender {
-    let settingTitle: String = "Benachrichtigungen"
+    let icon: String = "bell"
+    let settingDescription: String = "Benachrichtigung per Push. Werden auf all deinen verbundenen Geräten (Watch, iPad, Mac…) angezeigt."
+    let settingTitle: String = "Push Benachrichtigungen"
     let senderTimeManager = SenderTimeManager()
     
     @AppStorage("setting.notification")

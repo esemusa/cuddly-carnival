@@ -9,6 +9,7 @@ class LocalNotificationSender: Sender {
     
     @AppStorage("setting.notification")
     private(set) var setting: Int = 20
+    private(set) var isRequestingPermission: Bool = false
 
     func send() {
         // Check, if we are allowed to send again.
@@ -16,23 +17,33 @@ class LocalNotificationSender: Sender {
             return
         }
 
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                let content = UNMutableNotificationContent()
-                content.title = "Alarm!"
-                content.subtitle = "Aufwachen!"
-                content.sound = UNNotificationSound.default
+        let content = UNMutableNotificationContent()
+        content.title = "Achtung!"
+        content.subtitle = "Geräuschpegel überschritten!"
+        content.sound = UNNotificationSound.default
 
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
-                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
-                UNUserNotificationCenter.current().add(request)
-            }
-        }
+        UNUserNotificationCenter.current().add(request)
     }
     
     func save(setting: Int) {
         self.setting = setting
+    }
+    
+    func hasPermission(_ checked: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings {
+            checked($0.authorizationStatus == .authorized)
+        }
+    }
+    
+    func requestPermission(_ completion: @escaping (Bool, Error?) -> Void) {
+        isRequestingPermission = true
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] in
+            self?.isRequestingPermission = false
+            completion($0, $1)
+        }
     }
 }

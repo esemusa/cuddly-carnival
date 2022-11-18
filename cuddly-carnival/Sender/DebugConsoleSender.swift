@@ -9,6 +9,7 @@ class DebugConsoleSender: Sender {
     
     @AppStorage("setting.debug")
     private(set) var setting: Int = 20
+    private(set) var isRequestingPermission: Bool = false
     
     func send() {
         guard senderTimeManager.checkTime(for: setting) else { return }
@@ -17,5 +18,13 @@ class DebugConsoleSender: Sender {
 
     func save(setting: Int) {
         self.setting = setting
+    }
+    
+    func hasPermission(_ checked: @escaping (Bool) -> Void) {
+        checked(true)
+    }
+    
+    func requestPermission(_ completion: @escaping (Bool, Error?) -> Void) {
+        completion(true, nil)
     }
 }

@@ -8,6 +8,8 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     @State private var threshold: Int = -1
     @State private var lastThreshold: Int = -1
+    
+    @State private var showPermissionError: Bool = false
 
     @ObservedObject private var levelMeter: LevelMeter
 
@@ -45,6 +47,11 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .alert("Berechtigung nicht vergeben!", isPresented: $showPermissionError) {
+                        Text("Verstanden")
+                    } message: {
+                        Text("Um Benachrichtigt zu werden benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen für Cuddly-Carnival.")
+                    }
                 }
 
                 NavigationLink(
@@ -61,9 +68,30 @@ struct ContentView: View {
     }
 
     private func levelDidChange(to level: Int) {
-        if threshold != -1 && level > threshold {
-            sender.forEach {
-                $0.send()
+        guard threshold != -1 else { return }
+        
+        func send(for sender: Sender) {
+            if level > threshold {
+                sender.send()
+            }
+        }
+        
+        sender.forEach { sender in
+            guard !sender.isRequestingPermission else { return }
+
+            sender.hasPermission { hasPermission in
+                if hasPermission {
+                    send(for: sender)
+                } else {
+                    sender.requestPermission { result, error in
+                        if result {
+                            send(for: sender)
+                        } else {
+                            threshold = -1
+                            showPermissionError = true
+                        }
+                    }
+                }
             }
         }
     }

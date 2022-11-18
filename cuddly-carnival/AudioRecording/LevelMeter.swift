@@ -3,6 +3,10 @@ import Combine
 import SwiftUI
 
 class LevelMeter: ObservableObject {
+    
+    enum AudioError: Error {
+        case some(String)
+    }
 
     enum State {
         case active
@@ -31,7 +35,8 @@ class LevelMeter: ObservableObject {
         ]
 
         do {
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try enableBuiltInMic(for: audioSession)
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.mixWithOthers, .allowBluetoothA2DP])
             try audioSession.setActive(true)
             try recorder = AVAudioRecorder(url: url, settings: recordSettings)
         } catch {
@@ -62,6 +67,17 @@ class LevelMeter: ObservableObject {
         state = .inactive
         timer?.invalidate()
         recorder?.stop()
+    }
+    
+    private func enableBuiltInMic(for session: AVAudioSession) throws {
+        // Find the built-in microphone input.
+        guard let availableInputs = session.availableInputs,
+              let builtInMicInput = availableInputs.first(where: { $0.portType == .builtInMic }) else {
+            throw AudioError.some("The device must have a built-in microphone.")
+        }
+        
+        // Make the built-in microphone input the preferred input.
+        try session.setPreferredInput(builtInMicInput)
     }
 
     private func levelTimerCallback() {

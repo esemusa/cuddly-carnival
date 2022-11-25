@@ -17,14 +17,14 @@ struct LevelGauge: View {
                 ForEach(0 ..< 10) { i in
                     Arc(
                         isDisplaying: calculateIsDisplaying(at: i),
-                        isEnabled: actualIndex(for: i) <= threshold,
-                        isThresholdBroken: thresholdBroken
+                        isEnabled: i == threshold,
+                        isThresholdBroken: thresholdBroken && i <= threshold
                     ) {
                         // onTap
-                        if threshold == actualIndex(for: i) {
+                        if threshold == i {
                             threshold = -1
                         } else {
-                            threshold = actualIndex(for: i)
+                            threshold = i
                         }
                     }
                     .frame(
@@ -38,7 +38,7 @@ struct LevelGauge: View {
                 Button {
                     if threshold == -1 {
                         if lastThreshold == -1 {
-                            threshold = 5
+                            threshold = 4
                         } else {
                             threshold = lastThreshold
                         }

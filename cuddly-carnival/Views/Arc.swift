@@ -12,7 +12,7 @@ struct Arc: View {
     private let borderLineWidth: CGFloat = 20
 
     private var borderColor: Color {
-        if isEnabled || isThresholdBroken {
+        if isEnabled || (isDisplaying && isThresholdBroken) {
             return .ccEnabled
         } else {
             return .ccDisabled
@@ -20,14 +20,18 @@ struct Arc: View {
     }
 
     private var arcBackgroundColor: Color {
-        .ccArcBackground
+        if isDisplaying && isThresholdBroken {
+            return .ccArcBackground
+        } else {
+            return .ccArcBackgroundInactive
+        }
     }
 
     private var arcColor: Color {
-        switch (isEnabled, isDisplaying, isThresholdBroken) {
-        case (false, true, true):
+        switch (isDisplaying, isThresholdBroken) {
+        case (true, true):
             return .ccRed
-        case (true, true, _), (false, true, _):
+        case (true, false):
             return .ccGreen
         default:
             return .clear

@@ -1,4 +1,6 @@
 import UserNotifications
+import AVFoundation
+import AVFAudio
 import SwiftUI
 
 class LocalNotificationSender: Sender {
@@ -11,6 +13,12 @@ class LocalNotificationSender: Sender {
     private(set) var setting: Int = 20
     private(set) var isRequestingPermission: Bool = false
 
+    private var player: AVAudioPlayer?
+    
+    init() {
+        player = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Alarm", withExtension: "wav")!)
+    }
+    
     func send() {
         // Check, if we are allowed to send again.
         guard senderTimeManager.checkTime(for: setting) else {
@@ -20,9 +28,11 @@ class LocalNotificationSender: Sender {
         let content = UNMutableNotificationContent()
         content.title = "Achtung!"
         content.subtitle = "Geräuschpegel überschritten!"
-        content.sound = UNNotificationSound.default
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        player?.prepareToPlay()
+        player?.play()
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
 
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
@@ -41,7 +51,7 @@ class LocalNotificationSender: Sender {
     
     func requestPermission(_ completion: @escaping (Bool, Error?) -> Void) {
         isRequestingPermission = true
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge]) { [weak self] in
             self?.isRequestingPermission = false
             completion($0, $1)
         }

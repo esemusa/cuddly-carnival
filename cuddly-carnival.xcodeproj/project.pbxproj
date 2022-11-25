@@ -14,6 +14,7 @@
 		6DAD7D6D28DE0600001B1DF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAD7D6C28DE0600001B1DF2 /* ContentView.swift */; };
 		6DAD7D6F28DE0601001B1DF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DAD7D6E28DE0601001B1DF2 /* Assets.xcassets */; };
 		6DAD7D7228DE0601001B1DF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DAD7D7128DE0601001B1DF2 /* Preview Assets.xcassets */; };
+		6DB925ED2931166000F6E2BA /* Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DB925EC2931166000F6E2BA /* Alarm.wav */; };
 		ED8B2FCC28EC78AA002952CA /* LevelMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */; };
 		EDBDF6A82921793400950B3B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBDF6A72921793400950B3B /* Colors.swift */; };
 		EDD403A328F068A9003EF060 /* LocalNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */; };
@@ -31,6 +32,7 @@
 		6DAD7D6C28DE0600001B1DF2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6DAD7D6E28DE0601001B1DF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DAD7D7128DE0601001B1DF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6DB925EC2931166000F6E2BA /* Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alarm.wav; sourceTree = "<group>"; };
 		ED100A6F28DE083900F8063B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMeter.swift; sourceTree = "<group>"; };
 		EDBDF6A72921793400950B3B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				6DAD7D6E28DE0601001B1DF2 /* Assets.xcassets */,
+				6DB925EC2931166000F6E2BA /* Alarm.wav */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DB925ED2931166000F6E2BA /* Alarm.wav in Resources */,
 				6DAD7D7228DE0601001B1DF2 /* Preview Assets.xcassets in Resources */,
 				6DAD7D6F28DE0601001B1DF2 /* Assets.xcassets in Resources */,
 			);

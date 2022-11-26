@@ -20,14 +20,10 @@ struct Arc: View {
     }
 
     private var arcBackgroundColor: Color {
-        if isDisplaying && isThresholdBroken {
-            return .ccArcBackground
-        } else {
-            return .ccArcBackgroundInactive
-        }
+        return .ccArcBackground
     }
 
-    private var arcColor: Color {
+    private var levelColor: Color {
         switch (isDisplaying, isThresholdBroken) {
         case (true, true):
             return .ccRed
@@ -68,7 +64,7 @@ struct Arc: View {
                         lineJoin: .round
                     )
                 )
-                .foregroundColor(arcColor)
+                .foregroundColor(levelColor)
 
             // Almost fully transparent Arc over the actual arc to receive tap-gestures.
             // Setting this arc's opacity to 0 implicitly disabled tpuch gestures, so we set it to 0.000001.

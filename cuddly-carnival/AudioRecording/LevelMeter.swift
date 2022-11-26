@@ -84,7 +84,7 @@ class LevelMeter: ObservableObject {
         recorder?.updateMeters()
         level = level(
             for: (
-                (recorder?.peakPower(forChannel: 0) ?? 0)
+                (((recorder?.averagePower(forChannel: 0) ?? 0) + (recorder?.peakPower(forChannel: 0) ?? 0)) / 2.0)
             )
         )
     }

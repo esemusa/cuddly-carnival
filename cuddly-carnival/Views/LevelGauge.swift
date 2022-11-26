@@ -73,7 +73,7 @@ struct LevelGauge: View {
     }
 
     private var thresholdBroken: Bool {
-        threshold != -1 && level >= threshold
+        threshold != -1 && level > 10 - threshold
     }
 
     private var isRecordButtonActive: Bool {
@@ -81,9 +81,9 @@ struct LevelGauge: View {
     }
 
     private func calculateIsDisplaying(at i: Int) -> Bool {
-        let steps = 10 / numberOfArcs
-        let threshold = actualIndex(for: i) * Int(steps)
-        return Int(level) >= threshold
+        let stepFactor = 10 / numberOfArcs
+        let threshold = actualIndex(for: i) * Int(stepFactor)
+        return level >= threshold
     }
 
     private func arcWidth(for geometry: GeometryProxy, at i: Int) -> CGFloat {

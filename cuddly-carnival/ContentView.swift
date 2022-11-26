@@ -71,7 +71,7 @@ struct ContentView: View {
         guard threshold != -1 else { return }
         
         func send(for sender: Sender) {
-            if level > threshold {
+            if level > 10 - threshold {
                 sender.send()
             }
         }

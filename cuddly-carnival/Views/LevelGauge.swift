@@ -17,8 +17,9 @@ struct LevelGauge: View {
                 ForEach(0 ..< 10) { i in
                     Arc(
                         isDisplaying: calculateIsDisplaying(at: i),
-                        isEnabled: i == threshold,
-                        isThresholdBroken: thresholdBroken && i <= threshold
+                        isThreshold: i == threshold,
+                        isThresholdBroken: thresholdBroken && i < threshold,
+                        isAboveThreshold: i < threshold
                     ) {
                         // onTap
                         if threshold == i {

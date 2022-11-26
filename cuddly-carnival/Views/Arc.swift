@@ -4,15 +4,16 @@ public typealias CompletionVoid = () -> Void
 
 struct Arc: View {
     var isDisplaying: Bool
-    var isEnabled: Bool
+    var isThreshold: Bool
     var isThresholdBroken: Bool
+    var isAboveThreshold: Bool
     var onTap: CompletionVoid
 
     private let contentLineWidth: CGFloat = 14
     private let borderLineWidth: CGFloat = 20
 
     private var borderColor: Color {
-        if isEnabled || (isDisplaying && isThresholdBroken) {
+        if isThreshold || (isDisplaying && isThresholdBroken) {
             return .ccEnabled
         } else {
             return .ccDisabled
@@ -20,7 +21,11 @@ struct Arc: View {
     }
 
     private var arcBackgroundColor: Color {
-        return .ccArcBackground
+        if isThreshold || isAboveThreshold {
+            return .ccArcBackground
+        } else {
+            return .ccArcBackgroundDisabled
+        }
     }
 
     private var levelColor: Color {
@@ -105,16 +110,16 @@ struct Arc_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Text("Enabled, Displaying, !ThresholdBroken")
-            Arc(isDisplaying: true, isEnabled: true, isThresholdBroken: false, onTap: {})
+            Arc(isDisplaying: true, isThreshold: true, isThresholdBroken: false, isAboveThreshold: true, onTap: {})
             Text("Enabled, !Displaying, !ThresholdBroken")
-            Arc(isDisplaying: false, isEnabled: true, isThresholdBroken: false, onTap: {})
+            Arc(isDisplaying: false, isThreshold: true, isThresholdBroken: false, isAboveThreshold: false, onTap: {})
             Text("Enabled, Displaying, ThresholdBroken")
-            Arc(isDisplaying: false, isEnabled: true, isThresholdBroken: true, onTap: {})
-
+            Arc(isDisplaying: false, isThreshold: true, isThresholdBroken: true, isAboveThreshold: true, onTap: {})
+            
             Text("Disabled, Displaying, ThresholdBroken")
-            Arc(isDisplaying: true, isEnabled: false, isThresholdBroken: true, onTap: {})
+            Arc(isDisplaying: true, isThreshold: false, isThresholdBroken: true, isAboveThreshold: false, onTap: {})
             Text("Disabled, !Displaying, ThresholdBroken")
-            Arc(isDisplaying: false, isEnabled: false, isThresholdBroken: true, onTap: {})
+            Arc(isDisplaying: false, isThreshold: false, isThresholdBroken: true, isAboveThreshold: true, onTap: {})
         }
     }
 }

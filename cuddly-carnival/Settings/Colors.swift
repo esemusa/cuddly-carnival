@@ -20,4 +20,8 @@ extension Color {
     static var ccArcBackground: Color {
         Color("background")
     }
+    
+    static var ccArcBackgroundDisabled: Color {
+        Color("backgroundDisabled")
+    }
 }

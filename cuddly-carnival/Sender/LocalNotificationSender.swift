@@ -16,7 +16,7 @@ class LocalNotificationSender: Sender {
     private var player: AVAudioPlayer?
     
     init() {
-        player = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Alarm", withExtension: "wav")!)
+        player = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Alarm", withExtension: "mp3")!)
     }
     
     func send() {

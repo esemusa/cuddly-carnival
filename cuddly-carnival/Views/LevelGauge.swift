@@ -47,17 +47,11 @@ struct LevelGauge: View {
                         threshold = -1
                     }
                 } label: {
-                    ZStack {
-                        Image(systemName: "record.circle")
-                            .font(.system(size: 80.0))
-                            .multilineTextAlignment(.center)
-                            .rotationEffect(Angle(degrees: 270))
-                            .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
-                        
-                        Text("\(level)")
-                            .font(.system(size: 10.0))
-                            .foregroundColor(.primary)
-                    }
+                    Image(systemName: "record.circle")
+                        .font(.system(size: 80.0))
+                        .multilineTextAlignment(.center)
+                        .rotationEffect(Angle(degrees: 270))
+                        .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
                     
                 }
                 .scaleEffect(pulse ? 1.0 : 0.92)

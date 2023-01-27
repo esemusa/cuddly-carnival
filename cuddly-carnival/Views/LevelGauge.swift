@@ -47,11 +47,19 @@ struct LevelGauge: View {
                         threshold = -1
                     }
                 } label: {
-                    Image(systemName: "record.circle")
-                        .font(.system(size: 80.0))
-                        .multilineTextAlignment(.center)
-                        .rotationEffect(Angle(degrees: 270))
-                        .foregroundColor(isRecordButtonActive ? .ccRed : .ccDisabled)
+                    if isRecordButtonActive {
+                        Image(systemName: "stop.circle")
+                            .font(.system(size: 80.0))
+                            .multilineTextAlignment(.center)
+                            .rotationEffect(Angle(degrees: 270))
+                            .foregroundStyle(.red, .gray)
+                    } else {
+                        Image(systemName: "record.circle")
+                            .font(.system(size: 80.0))
+                            .multilineTextAlignment(.center)
+                            .rotationEffect(Angle(degrees: 270))
+                            .foregroundStyle(.red, .gray)
+                    }
                     
                 }
                 .scaleEffect(pulse ? 1.0 : 0.92)

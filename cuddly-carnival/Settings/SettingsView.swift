@@ -9,7 +9,7 @@ struct SettingsView: View {
             Text("Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!")
             ForEach(sender.indices, id: \.self) { index in
                 if stepperBindings.count > index {
-                    Section(header: Text(sender[index].settingTitle), footer: Text(sender[index].settingDescription)) {
+                    Section(header: Text(LocalizedStringKey(sender[index].settingTitle)), footer: Text(LocalizedStringKey(sender[index].settingDescription))) {
                         HStack {
                             Image(systemName: sender[index].icon)
                                 .font(.system(size: 25.0))
@@ -18,7 +18,7 @@ struct SettingsView: View {
                                 value: $stepperBindings[index],
                                 in: 1...Int.max
                             ) {
-                                Text("Alle **\($stepperBindings[index].wrappedValue)** Sekunden")
+                                Text("Alle **\($stepperBindings[index].wrappedValue, specifier: "%lld")** Sekunden")
                             }
                         }
                     }

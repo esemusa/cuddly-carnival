@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  cuddly-carnival
+
+  Created by Donder, Tobias on 27.01.23.
+  
+*/
+"Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!" = "Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!";
+"Alle **%lld** Sekunden" = "Alle **%lld** Sekunden";
+"Einstellungen" = "Einstellungen";
+"Push Benachrichtigungen" = "Push Benachrichtigungen";
+"Benachrichtigung per Push. Werden auf all deinen verbundenen Geräten (Watch, iPad, Mac…) angezeigt." = "Benachrichtigung per Push. Werden auf all deinen verbundenen Geräten (Watch, iPad, Mac…) angezeigt.";
+"Achtung!" = "Achtung!";
+"Geräuschpegel überschritten!" = "Geräuschpegel überschritten!";

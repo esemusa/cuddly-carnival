@@ -13,10 +13,12 @@ struct Arc: View {
     private let borderLineWidth: CGFloat = 20
 
     private var borderColor: Color {
-        if isThreshold || (isDisplaying && isThresholdBroken) {
+        if isAboveThreshold {
+            return .ccDisabled
+        } else if isThreshold {
             return .ccEnabled
         } else {
-            return .ccDisabled
+            return Color.ccArcBackground
         }
     }
 

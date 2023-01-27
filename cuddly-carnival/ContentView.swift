@@ -59,7 +59,7 @@ struct ContentView: View {
                 ) {
                     Image(systemName: "gearshape.fill")
                         .font(.system(size: 30.0))
-                        .tint(.accentColor)
+                        .tint(Color.secondary)
                 }
                 .padding(.bottom, 26)
                 .padding(.trailing, 20)

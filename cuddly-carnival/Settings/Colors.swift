@@ -14,7 +14,7 @@ extension Color {
     }
 
     static var ccDisabled: Color {
-        Color("disabled")
+        .secondary
     }
 
     static var ccArcBackground: Color {

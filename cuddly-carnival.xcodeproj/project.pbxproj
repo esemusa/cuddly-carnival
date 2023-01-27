@@ -16,6 +16,7 @@
 		6DAD7D7228DE0601001B1DF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DAD7D7128DE0601001B1DF2 /* Preview Assets.xcassets */; };
 		6DE6A233294CD533009FCB08 /* Alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DE6A232294CD533009FCB08 /* Alarm.mp3 */; };
 		ED89DF91298439EA0070E6FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED89DF93298439EA0070E6FE /* Localizable.strings */; };
+		ED89DF98298443570070E6FE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED89DF9A298443570070E6FE /* InfoPlist.strings */; };
 		ED8B2FCC28EC78AA002952CA /* LevelMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */; };
 		EDBDF6A82921793400950B3B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBDF6A72921793400950B3B /* Colors.swift */; };
 		EDD403A328F068A9003EF060 /* LocalNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */; };
@@ -37,6 +38,8 @@
 		ED100A6F28DE083900F8063B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ED89DF92298439EA0070E6FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED89DF9529843E1A0070E6FE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ED89DF99298443570070E6FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED89DF9B298443580070E6FE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMeter.swift; sourceTree = "<group>"; };
 		EDBDF6A72921793400950B3B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationSender.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 				6DE6A232294CD533009FCB08 /* Alarm.mp3 */,
 				6DAD7D6E28DE0601001B1DF2 /* Assets.xcassets */,
 				ED89DF93298439EA0070E6FE /* Localizable.strings */,
+				ED89DF9A298443570070E6FE /* InfoPlist.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -209,6 +213,7 @@
 				ED89DF91298439EA0070E6FE /* Localizable.strings in Resources */,
 				6DAD7D7228DE0601001B1DF2 /* Preview Assets.xcassets in Resources */,
 				6DAD7D6F28DE0601001B1DF2 /* Assets.xcassets in Resources */,
+				ED89DF98298443570070E6FE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +248,15 @@
 				ED89DF9529843E1A0070E6FE /* de */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		ED89DF9A298443570070E6FE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED89DF99298443570070E6FE /* en */,
+				ED89DF9B298443580070E6FE /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

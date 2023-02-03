@@ -9,7 +9,8 @@ struct ContentView: View {
     @State private var threshold: Int = -1
     @State private var lastThreshold: Int = -1
     
-    @State private var showPermissionError: Bool = false
+    @State private var showRecordPermissionError: Bool = false
+    @State private var showNotificationPermissionError: Bool = false
 
     @ObservedObject private var levelMeter: LevelMeter
 
@@ -35,6 +36,12 @@ struct ContentView: View {
                     .onChange(of: threshold) {
                         if $0 != -1 {
                             lastThreshold = $0
+                            levelMeter.hasPermission {
+                                if !$0 {
+                                    threshold = -1
+                                    showRecordPermissionError = true
+                                }
+                            }
                         }
                     }
                     .onChange(of: scenePhase) { newPhase in
@@ -47,7 +54,12 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .alert("Berechtigung nicht vergeben!", isPresented: $showPermissionError) {
+                    .alert("Berechtigung nicht vergeben!", isPresented: $showRecordPermissionError) {
+                        Text("Verstanden")
+                    } message: {
+                        Text("Um Benachrichtigt zu werden benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen für Cuddly-Carnival.")
+                    }
+                    .alert("Berechtigung nicht vergeben!", isPresented: $showNotificationPermissionError) {
                         Text("Verstanden")
                     } message: {
                         Text("Um Benachrichtigt zu werden benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen für Cuddly-Carnival.")
@@ -88,7 +100,7 @@ struct ContentView: View {
                             send(for: sender)
                         } else {
                             threshold = -1
-                            showPermissionError = true
+                            showNotificationPermissionError = true
                         }
                     }
                 }

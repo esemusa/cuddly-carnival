@@ -61,6 +61,10 @@ class LevelMeter: ObservableObject {
             }
         }
     }
+    
+    func hasPermission(completion: @escaping (Bool) -> Void) {
+        audioSession.requestRecordPermission { completion($0) }
+    }
 
     func stop() {
         level = 0

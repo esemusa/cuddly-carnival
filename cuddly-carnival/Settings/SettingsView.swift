@@ -6,7 +6,10 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Text("Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!")
+            Section(header: Text("Informationen")) {
+                Text("Stelle hier ein, wie viel Zeit zwischen zwei Benachrichtigungen vergehen soll.\n\nDie **erste** Benachrichtigung kommt **sofort**!")
+            }
+            
             ForEach(sender.indices, id: \.self) { index in
                 if stepperBindings.count > index {
                     Section(header: Text(LocalizedStringKey(sender[index].settingTitle)), footer: Text(LocalizedStringKey(sender[index].settingDescription))) {

@@ -8,3 +8,5 @@
 "Berechtigung nicht vergeben!" = "Permission not granted!";
 "Verstanden" = "OK";
 "Um benachrichtigt werden zu können benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen." = "To be able to send notifications we need you to grant the permission to do so.\nPlease find and grant the permission in the iOS Settings-app.";
+"Das Gerät braucht ein eingebautes Mikrofon." = "The device must have a built-in microphone.";
+"Informationen" = "Informations";

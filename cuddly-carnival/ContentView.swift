@@ -57,12 +57,12 @@ struct ContentView: View {
                     .alert("Berechtigung nicht vergeben!", isPresented: $showRecordPermissionError) {
                         Text("Verstanden")
                     } message: {
-                        Text("Um Benachrichtigt zu werden benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen für Cuddly-Carnival.")
+                        Text("Um benachrichtigt werden zu können benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen.")
                     }
                     .alert("Berechtigung nicht vergeben!", isPresented: $showNotificationPermissionError) {
                         Text("Verstanden")
                     } message: {
-                        Text("Um Benachrichtigt zu werden benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen für Cuddly-Carnival.")
+                        Text("Um benachrichtigt werden zu können benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen.")
                     }
                 }
 

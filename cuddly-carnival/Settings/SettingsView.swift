@@ -27,6 +27,10 @@ struct SettingsView: View {
                     }
                 }
             }
+
+            Section(header: Text("Copyright")) {
+                Link("Alert icons created by Pixel perfect - Flaticon", destination: URL(string: "https://www.flaticon.com/free-icons/alert")!)
+            }
         }
         .navigationTitle("Einstellungen")
         .padding()

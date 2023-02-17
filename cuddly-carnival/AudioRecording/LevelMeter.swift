@@ -51,13 +51,17 @@ class LevelMeter: ObservableObject {
                 self?.recorder?.isMeteringEnabled = true
                 self?.recorder?.record()
 
-                self?.state = .active
+                DispatchQueue.main.async {
+                    self?.state = .active
+                }
 
                 self?.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                     self?.levelTimerCallback()
                 }
             } else {
-                self?.state = .permissionMissing
+                DispatchQueue.main.async {
+                    self?.state = .permissionMissing
+                }
             }
         }
     }

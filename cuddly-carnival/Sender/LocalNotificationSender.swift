@@ -26,8 +26,8 @@ class LocalNotificationSender: Sender {
         }
 
         let content = UNMutableNotificationContent()
-        content.title = "Achtung!"
-        content.subtitle = "Geräuschpegel überschritten!"
+        content.title = NSLocalizedString("Achtung!", comment: "Achtung!")
+        content.subtitle = NSLocalizedString("Geräuschpegel überschritten!", comment: "Geräuschpegel überschritten!")
 
         player?.prepareToPlay()
         player?.play()

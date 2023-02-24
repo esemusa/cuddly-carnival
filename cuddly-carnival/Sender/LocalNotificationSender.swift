@@ -10,7 +10,7 @@ class LocalNotificationSender: Sender {
     let senderTimeManager = SenderTimeManager()
     
     @AppStorage("setting.notification")
-    private(set) var setting: Int = 20
+    private(set) var setting: Int = 10
     private(set) var isRequestingPermission: Bool = false
 
     private var player: AVAudioPlayer?

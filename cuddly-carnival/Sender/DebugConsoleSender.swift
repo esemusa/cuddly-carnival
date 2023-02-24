@@ -8,7 +8,7 @@ class DebugConsoleSender: Sender {
     let senderTimeManager = SenderTimeManager()
     
     @AppStorage("setting.debug")
-    private(set) var setting: Int = 20
+    private(set) var setting: Int = 1
     private(set) var isRequestingPermission: Bool = false
     
     func send() {

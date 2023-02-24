@@ -4,6 +4,7 @@ import SwiftUI
 struct cuddly_carnivalApp: App {
     private var sender: [Sender] = {
         var sender: [Sender] = [
+            AudioSignalSender(),
             LocalNotificationSender()
         ]
 

@@ -1,6 +1,4 @@
 import UserNotifications
-import AVFoundation
-import AVFAudio
 import SwiftUI
 
 class LocalNotificationSender: Sender {
@@ -12,12 +10,6 @@ class LocalNotificationSender: Sender {
     @AppStorage("setting.notification")
     private(set) var setting: Int = 10
     private(set) var isRequestingPermission: Bool = false
-
-    private var player: AVAudioPlayer?
-    
-    init() {
-        player = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Alarm", withExtension: "mp3")!)
-    }
     
     func send() {
         // Check, if we are allowed to send again.
@@ -28,9 +20,6 @@ class LocalNotificationSender: Sender {
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("Achtung!", comment: "Achtung!")
         content.subtitle = NSLocalizedString("Geräuschpegel überschritten!", comment: "Geräuschpegel überschritten!")
-
-        player?.prepareToPlay()
-        player?.play()
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
 

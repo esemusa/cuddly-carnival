@@ -4,7 +4,7 @@
 "Push Benachrichtigungen" = "Push Notifications";
 "Benachrichtigung per Push. Werden auf all deinen verbundenen Geräten (Watch, iPad, Mac…) angezeigt." = "Push notifications will be delivered to all connected devices (Watch, iPad, Mac…).";
 "Achtung!" = "Attention!";
-"Geräuschpegel überschritten!" = "Some noise just surpassed your selected threshold!";
+"Geräuschpegel überschritten!" = "Noise threshold surpassed!";
 "Berechtigung nicht vergeben!" = "Permission not granted!";
 "Verstanden" = "OK";
 "Um benachrichtigt werden zu können benötigen wir die entsprechenden Berechtigungen.\nGehe in die Systemeinstellungen und aktiviere alle benötigten Berechtigungen." = "To be able to send notifications we need you to grant the permission to do so.\nPlease find and grant the permission in the iOS Settings-app.";
@@ -12,3 +12,5 @@
 "Informationen" = "Informations";
 "Copyright" = "Copyright";
 "Alert icons created by Pixel perfect - Flaticon" = "Alert icons created by Pixel perfect - Flaticon";
+"Benachrichtigung per Klingel. Ist auch während des Abspielens von Musik oder Filmen hörbar." = "Bell. Is audible even during music or video playback";
+"Klingel" = "Bell";

@@ -18,6 +18,7 @@
 		ED89DF91298439EA0070E6FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED89DF93298439EA0070E6FE /* Localizable.strings */; };
 		ED89DF98298443570070E6FE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED89DF9A298443570070E6FE /* InfoPlist.strings */; };
 		ED8B2FCC28EC78AA002952CA /* LevelMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */; };
+		EDA30ED529A90DFE00FF0627 /* AudioSignalSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA30ED429A90DFE00FF0627 /* AudioSignalSender.swift */; };
 		EDBDF6A82921793400950B3B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBDF6A72921793400950B3B /* Colors.swift */; };
 		EDD403A328F068A9003EF060 /* LocalNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */; };
 		EDD403A628F068E1003EF060 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD403A528F068E1003EF060 /* Sender.swift */; };
@@ -41,6 +42,7 @@
 		ED89DF99298443570070E6FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED89DF9B298443580070E6FE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED8B2FCB28EC78AA002952CA /* LevelMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMeter.swift; sourceTree = "<group>"; };
+		EDA30ED429A90DFE00FF0627 /* AudioSignalSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSignalSender.swift; sourceTree = "<group>"; };
 		EDBDF6A72921793400950B3B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationSender.swift; sourceTree = "<group>"; };
 		EDD403A528F068E1003EF060 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		EDD403A128F06891003EF060 /* Sender */ = {
 			isa = PBXGroup;
 			children = (
+				EDA30ED429A90DFE00FF0627 /* AudioSignalSender.swift */,
 				6D46242A290C295A00CAE4E9 /* DebugConsoleSender.swift */,
 				EDD403A228F068A9003EF060 /* LocalNotificationSender.swift */,
 				EDD403A528F068E1003EF060 /* Sender.swift */,
@@ -227,6 +230,7 @@
 				6DAD7D6D28DE0600001B1DF2 /* ContentView.swift in Sources */,
 				EDBDF6A82921793400950B3B /* Colors.swift in Sources */,
 				6D9036022902B89300386AF9 /* SettingsView.swift in Sources */,
+				EDA30ED529A90DFE00FF0627 /* AudioSignalSender.swift in Sources */,
 				EDD403A628F068E1003EF060 /* Sender.swift in Sources */,
 				EDDEBA4D29067F9F002FF58A /* Arc.swift in Sources */,
 				6DAD7D6B28DE0600001B1DF2 /* cuddly_carnivalApp.swift in Sources */,
@@ -402,7 +406,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.cuddly-carnival";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -438,7 +442,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.cuddly-carnival";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

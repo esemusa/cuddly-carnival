@@ -20,6 +20,8 @@ class LocalNotificationSender: Sender {
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("Achtung!", comment: "Achtung!")
         content.subtitle = NSLocalizedString("Geräuschpegel überschritten!", comment: "Geräuschpegel überschritten!")
+        content.sound = .defaultCritical
+        content.interruptionLevel = .critical
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
 
